@@ -53,7 +53,6 @@
     <Compile Include="Managers\ConnectionManager.cs" />
     <Compile Include="Networking\LoginConnection.cs" />
     <Compile Include="Networking\LoginListener.cs" />
-    <Compile Include="Networking\Packets\CpCustomLogin.cs" />
     <Compile Include="Networking\Packets\CpFacebookLogin.cs" />
     <Compile Include="Networking\Packets\CpLogin.cs" />
     <Compile Include="Networking\Packets\SpLoginResponse.cs" />
