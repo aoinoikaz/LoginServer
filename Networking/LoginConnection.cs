@@ -23,7 +23,7 @@ namespace LoginServer.Networking
 
         void Connection_OnDisconnect(object sender, SessionClosedEventArgs e)
         {
-            Logger.Log(LogLevel.Debug, "{0} has disconnected: {1}", EndPoint, e.Reason);
+            Logger.Log(LogLevel.Info, "{0} has disconnected: {1}", EndPoint, e.Reason);
             ConnectionManager.Instance.RemoveConnection(this);
         }
 
@@ -35,9 +35,7 @@ namespace LoginServer.Networking
             {
                 // Ensure the client sent a packet that we actually initialized
                 if (OperationCodes.ReceivePacket.ContainsKey(e.OpCode))
-                {
-                    Logger.Log(LogLevel.Debug, "Contains op code: {0}", e.OpCode.ToString());
-                    
+                {   
                     // Reconstruct the packet that the client sent and process it
                     ((ReceivePacket)Activator.CreateInstance(OperationCodes.ReceivePacket[e.OpCode])).Process(this, e.Buffer);
                 }

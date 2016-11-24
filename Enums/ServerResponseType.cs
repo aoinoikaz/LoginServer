@@ -2,8 +2,8 @@
 {
     public enum ServerResponseType : ushort
     {
-        AUTHENTICATION_SUCCEEDED = 0x0,
-        AUTHENTICATION_FAILED = 0x1,
-        ACCOUNT_MULTI_LOG = 0x2
+        AuthenticationSuccess = 0x0,
+        AuthenticationFailed = 0x1,
+        AuthenticationMultilog = 0x2,
     }
 }

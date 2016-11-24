@@ -17,16 +17,15 @@ namespace LoginServer.Networking.Packets
         {
             switch(type)
             {
-                case ServerResponseType.AUTHENTICATION_SUCCEEDED:
+                case ServerResponseType.AuthenticationSuccess:
                     writer.Write(true);
                     break;
-                case ServerResponseType.AUTHENTICATION_FAILED:
+                case ServerResponseType.AuthenticationFailed:
                     writer.Write(false);
                     break;
-                case ServerResponseType.ACCOUNT_MULTI_LOG:
+                case ServerResponseType.AuthenticationMultilog:
                     writer.Write(0x0C07);
                     break;
-
             }
         }
     }

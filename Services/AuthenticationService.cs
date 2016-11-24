@@ -37,30 +37,28 @@ namespace LoginServer.Services
                     // Check if more than 1 user is logged into the account    
                     if (ConnectionManager.Instance.IsLoggedIn(key))
                     {
-                        Logger.Log(LogLevel.Warn, "Multiple login detected at account : {0}\n", key);
+                        Logger.Log(LogLevel.Info, "Multiple login detected at account : {0}\n", key);
                         LoginConnection loggedInClient = ConnectionManager.Instance.GetMultipleLogin(key);
 
-                        new SpLoginResponse(ServerResponseType.ACCOUNT_MULTI_LOG).Send(connection);
+                        new SpLoginResponse(ServerResponseType.AuthenticationMultilog).Send(connection);
 
                         loggedInClient.Disconnect();
                     }
- 
-                    Logger.Log(LogLevel.Debug, "{0} from {1} has been authenticated: {2}", key, connection.EndPoint, type.ToString());
+
+                    Logger.Log(LogLevel.Info, "{0} authentication succeeded: {1} | {2}", type.ToString(), key, connection.EndPoint.ToString());
 
                     connection.IsAuthenticated = true;
                     connection.Username = key;
                     connection.ServerIdentifier = sID;
 
-                    Logger.Log("Right here is where we'd send the authentication succeeded packet");
-                    new SpLoginResponse(ServerResponseType.AUTHENTICATION_SUCCEEDED).Send(connection);
-                    
+                    new SpLoginResponse(ServerResponseType.AuthenticationSuccess).Send(connection);
                 }
                 else
                 {
-                    Logger.Log(LogLevel.Debug, "{0} from {1} has not been authenticated: {2}", key, connection.EndPoint, type.ToString());
+                    Logger.Log(LogLevel.Info, "{0} authentication failed: {1} | {2}", type.ToString(), key, connection.EndPoint.ToString());
                     connection.IsAuthenticated = false;
 
-                    new SpLoginResponse(ServerResponseType.AUTHENTICATION_FAILED).Send(connection);
+                    new SpLoginResponse(ServerResponseType.AuthenticationFailed).Send(connection);
                 }
             }
         }

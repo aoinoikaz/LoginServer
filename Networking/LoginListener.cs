@@ -39,7 +39,7 @@ namespace LoginServer.Networking
 
         public override void OnClientConnected(Socket socket)
         {
-            Logger.Log(LogLevel.Debug, "Incoming player connection: {0}", socket.RemoteEndPoint.ToString());
+            Logger.Log(LogLevel.Info, "Incoming player connection: {0}", socket.RemoteEndPoint.ToString());
 
             LoginConnection connection = new LoginConnection(socket);
 
