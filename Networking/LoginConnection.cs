@@ -35,16 +35,24 @@ namespace LoginServer.Networking
             {
                 // Ensure the client sent a packet that we actually initialized
                 if (OperationCodes.ReceivePacket.ContainsKey(e.OpCode))
-                {   
+                {
                     // Reconstruct the packet that the client sent and process it
                     ((ReceivePacket)Activator.CreateInstance(OperationCodes.ReceivePacket[e.OpCode])).Process(this, e.Buffer);
                 }
                 else
                 {
-                    byte header = (byte)(e.OpCode >> 10);
-                    byte type = (byte)(e.OpCode & 1023);
+                    // Default divergenet network operation code
+                    if (e.OpCode == 0x0001)
+                    {
+                        ((ReceivePacket)Activator.CreateInstance(OperationCodes.ReceivePacket[e.OpCode])).Process(this, e.Buffer);
+                    }
+                    else
+                    {
+                        byte header = (byte)(e.OpCode >> 10);
+                        byte type = (byte)(e.OpCode & 1023);
 
-                    Logger.Log(LogLevel.Debug, "Unhandled packet: {0}|{1} Opcode: 0x{2:X4}", header, type, e.OpCode);
+                        Logger.Log(LogLevel.Debug, "Unhandled packet: {0}|{1} Opcode: 0x{2:X4}", header, type, e.OpCode);
+                    }  
                 }
             }
             catch (Exception ex)

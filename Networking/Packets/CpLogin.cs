@@ -1,11 +1,10 @@
 ﻿using System;
-using System.IO;
-using System.Data.SqlClient;
 
 using DivergentNetwork.Core.Debug;
 using DivergentNetwork.Core.Networking.Packets;
 
 using LoginServer.Services;
+using LoginServer.Enums;
 
 public sealed class CpLogin : ReceivePacket, IDisposable
 {
@@ -14,13 +13,20 @@ public sealed class CpLogin : ReceivePacket, IDisposable
 
     public override void Read()
     {
-        usr = reader.ReadString();
-        pw = reader.ReadString();
+        usr = Reader.ReadString();
+        pw = Reader.ReadString();
     }
 
     public override void Process()
     {
-        AuthenticationService.Validate(LoginServer.Enums.AuthenticationType.Custom, connection, usr, pw);
+        try
+        {
+            AuthenticationService.Validate(AuthenticationType.Custom, base.Client, usr, pw);
+        }
+        catch (Exception e)
+        {
+            Logger.Log(LogLevel.Info, "Caught exception inside derived class when tryna process: {0}", e.Message);
+        }
     }
 
     public void Dispose()

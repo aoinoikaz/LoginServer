@@ -9,6 +9,7 @@ using LoginServer.Managers;
 using LoginServer.Enums;
 using LoginServer.Networking;
 using LoginServer.Networking.Packets;
+using DivergentNetwork.Core.Networking.Events;
 
 namespace LoginServer.Services
 {
@@ -42,7 +43,7 @@ namespace LoginServer.Services
 
                         new SpLoginResponse(ServerResponseType.AuthenticationMultilog).Send(connection);
 
-                        loggedInClient.Disconnect();
+                        loggedInClient.Disconnect(DisconnectReason.LoggedOff);
                     }
 
                     Logger.Log(LogLevel.Info, "{0} authentication succeeded: {1} | {2}", type.ToString(), key, connection.EndPoint.ToString());
