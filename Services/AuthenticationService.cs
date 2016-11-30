@@ -43,7 +43,7 @@ namespace LoginServer.Services
 
                         new SpLoginResponse(ServerResponseType.AuthenticationMultilog).Send(connection);
 
-                        loggedInClient.Disconnect(DisconnectReason.LoggedOff);
+                        loggedInClient.Disconnect(DisconnectCause.LoggedOff);
                     }
 
                     Logger.Log(LogLevel.Info, "{0} authentication succeeded: {1} | {2}", type.ToString(), key, connection.EndPoint.ToString());

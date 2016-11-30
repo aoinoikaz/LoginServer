@@ -21,7 +21,7 @@ public sealed class CpLogin : ReceivePacket, IDisposable
     {
         try
         {
-            AuthenticationService.Validate(AuthenticationType.Custom, base.Client, usr, pw);
+            AuthenticationService.Validate(AuthenticationType.Custom, Client, usr, pw);
         }
         catch (Exception e)
         {
