@@ -27,8 +27,8 @@ namespace LoginServer
             ConnectionManager.Initialize();
 
             Logger.Log(LogLevel.Info, "Configuring operation codes:");
-            OperationCodes.AddOperationCode(OperationType.Receive, unchecked(0x0C01), typeof(CpLogin));
-            OperationCodes.AddOperationCode(OperationType.Send, unchecked(0x0C07), typeof(SpLoginResponse));
+            OperationCodes.AddOperationCode(OperationType.Receive, unchecked(0x0CA1), typeof(CpLogin));
+            OperationCodes.AddOperationCode(OperationType.Send, unchecked(0x0CB2), typeof(SpLoginResponse));
 
             Logger.Log("");
             Logger.Log(LogLevel.Info, "Configuring database manager...");
